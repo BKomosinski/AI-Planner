@@ -14,7 +14,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     companion object {
         const val DATABASE_NAME = "user_data.db"
-        const val DATABASE_VERSION = 3
+        const val DATABASE_VERSION = 4
         const val TABLE_NAME = "user_data"
         const val COLUMN_ID = "id"
         const val COLUMN_HRV = "hrv"
@@ -40,10 +40,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db?.execSQL(createTableQuery)
     }
 
-    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        if (oldVersion < 3) {
-            val addColumnQuery = "ALTER TABLE $TABLE_NAME ADD COLUMN $COLUMN_USER_NAME TEXT"
-            db?.execSQL(addColumnQuery)
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        if (oldVersion < newVersion) {
+            // Zmiana struktury bazy danych, dodanie kolumny 'user_name'
+            val addColumnQuery = "ALTER TABLE user_data ADD COLUMN user_name TEXT;"
+            db.execSQL(addColumnQuery)
         }
     }
 
