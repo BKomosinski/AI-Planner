@@ -1,14 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Inne elementy ekranu zalogowanego użytkownika -->
-
-    <Button
-        android:id="@+id/logoutButton"
+    <EditText
+        android:id="@+id/etHRV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Wyloguj" />
+        android:hint="HRV" />
+
+    <EditText
+        android:id="@+id/etRestingHeartRate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tętno spoczynkowe" />
+
+    <EditText
+        android:id="@+id/etWeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Waga" />
+
+    <EditText
+        android:id="@+id/etBedtime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Godzina zaśnięcia" />
+
+    <EditText
+        android:id="@+id/etWakeupTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Godzina obudzenia" />
+
+    <Button
+        android:id="@+id/btnSaveData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Zapisz dane" />
+
+    <Button
+        android:id="@+id/btnViewData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pokaż dane"
+        android:layout_below="@id/btnSaveData"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wyloguj"
+        android:layout_below="@id/btnViewData"
+        android:layout_marginTop="16dp"/>
+
 </LinearLayout>

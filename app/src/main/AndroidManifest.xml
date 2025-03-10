@@ -20,6 +20,9 @@
         <activity android:name=".ui.LoggedInActivity">
             <!-- Możesz tu dodać dodatkowe atrybuty, jeśli chcesz -->
         </activity>
+        <activity android:name=".ui.HistoryActivity">
+            <!-- Opcjonalne ustawienia, takie jak temat -->
+        </activity>
     </application>
 
 </manifest>
