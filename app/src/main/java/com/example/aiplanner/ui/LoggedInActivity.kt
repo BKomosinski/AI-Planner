@@ -54,10 +54,12 @@ class LoggedInActivity : AppCompatActivity() {
             val bedtime = bedtimeEditText.text.toString()
             val wakeupTime = wakeupTimeEditText.text.toString()
 
+            val user = auth.currentUser
+            val userName = user?.email ?: "Unknown User"
 
 
 // Przekazywanie do bazy
-            dbHelper.saveUserData(hrv, restingHeartRate, weight, bedtime, wakeupTime)
+            dbHelper.saveUserData(hrv, restingHeartRate, weight, bedtime, wakeupTime, userName)
         }
 
         // Obsługa przycisku "Pokaż dane"
