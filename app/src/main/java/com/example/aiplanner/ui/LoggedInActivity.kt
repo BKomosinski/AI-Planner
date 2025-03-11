@@ -60,6 +60,12 @@ class LoggedInActivity : AppCompatActivity() {
 
 // Przekazywanie do bazy
             dbHelper.saveUserData(hrv, restingHeartRate, weight, bedtime, wakeupTime, userName)
+
+            hrvEditText.setText("")
+            restingHeartRateEditText.setText("")
+            weightEditText.setText("")
+            bedtimeEditText.setText("")
+            wakeupTimeEditText.setText("")
         }
 
         // Obsługa przycisku "Pokaż dane"

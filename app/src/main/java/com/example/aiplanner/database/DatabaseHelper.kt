@@ -8,13 +8,15 @@ import com.example.aiplanner.model.UserData
 import java.text.SimpleDateFormat
 import java.util.*
 import java.lang.Float
-import kotlin.text.toFloatOrNull
+import android.util.Log
+import java.sql.SQLException
+
 
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
         const val DATABASE_NAME = "user_data.db"
-        const val DATABASE_VERSION = 4
+        const val DATABASE_VERSION = 5
         const val TABLE_NAME = "user_data"
         const val COLUMN_ID = "id"
         const val COLUMN_HRV = "hrv"
@@ -41,10 +43,13 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        if (oldVersion < newVersion) {
-            // Zmiana struktury bazy danych, dodanie kolumny 'user_name'
-            val addColumnQuery = "ALTER TABLE user_data ADD COLUMN user_name TEXT;"
-            db.execSQL(addColumnQuery)
+        if (oldVersion < 2) { // Zmien wersje, by dodac kolumnę tylko raz
+            try {
+                db.execSQL("ALTER TABLE user_data ADD COLUMN user_name TEXT")
+            } catch (e: SQLException) {
+                // Obsługuje przypadek, gdy kolumna już istnieje
+                Log.e("Database", "Kolumna 'user_name' już istnieje")
+            }
         }
     }
 
