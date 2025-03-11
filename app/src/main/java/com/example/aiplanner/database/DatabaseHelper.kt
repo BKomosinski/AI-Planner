@@ -16,7 +16,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     companion object {
         const val DATABASE_NAME = "user_data.db"
-        const val DATABASE_VERSION = 5
+        const val DATABASE_VERSION = 8
         const val TABLE_NAME = "user_data"
         const val COLUMN_ID = "id"
         const val COLUMN_HRV = "hrv"
@@ -37,13 +37,13 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 "$COLUMN_WEIGHT TEXT, " +
                 "$COLUMN_BEDTIME TEXT, " +
                 "$COLUMN_WAKEUP_TIME TEXT, " +
-                "$COLUMN_DATE TEXT)"  // Dodajemy kolumnę dla daty
+                "$COLUMN_DATE TEXT,"+  // Dodajemy kolumnę dla daty
                 "$COLUMN_USER_NAME TEXT)"
         db?.execSQL(createTableQuery)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        if (oldVersion < 2) { // Zmien wersje, by dodac kolumnę tylko raz
+        if (oldVersion < newVersion) { // Zmien wersje, by dodac kolumnę tylko raz
             try {
                 db.execSQL("ALTER TABLE user_data ADD COLUMN user_name TEXT")
             } catch (e: SQLException) {
