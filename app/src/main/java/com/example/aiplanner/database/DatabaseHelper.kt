@@ -16,7 +16,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     companion object {
         const val DATABASE_NAME = "user_data.db"
-        const val DATABASE_VERSION = 8
+        const val DATABASE_VERSION = 9
         const val TABLE_NAME = "user_data"
         const val COLUMN_ID = "id"
         const val COLUMN_HRV = "hrv"
@@ -43,15 +43,33 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        if (oldVersion < newVersion) { // Zmien wersje, by dodac kolumnę tylko raz
+        if (oldVersion < newVersion) {
             try {
-                db.execSQL("ALTER TABLE user_data ADD COLUMN user_name TEXT")
+                // Sprawdzamy, czy kolumna już istnieje
+                val cursor = db.rawQuery("PRAGMA table_info($TABLE_NAME)", null)
+                var columnExists = false
+                if (cursor != null) {
+                    while (cursor.moveToNext()) {
+                        val columnName = cursor.getString(cursor.getColumnIndex("name"))
+                        if (columnName == COLUMN_USER_NAME) {
+                            columnExists = true
+                            break
+                        }
+                    }
+                    cursor.close()
+                }
+
+                // Jeżeli kolumna 'user_name' nie istnieje, dodajemy ją
+                if (!columnExists) {
+                    db.execSQL("ALTER TABLE $TABLE_NAME ADD COLUMN $COLUMN_USER_NAME TEXT")
+                }
             } catch (e: SQLException) {
                 // Obsługuje przypadek, gdy kolumna już istnieje
-                Log.e("Database", "Kolumna 'user_name' już istnieje")
+                Log.e("Database", "Błąd przy aktualizacji bazy danych: ${e.message}")
             }
         }
     }
+
 
     // Metoda do pobierania ostatnich danych
 //    fun getLastData(): UserData {
