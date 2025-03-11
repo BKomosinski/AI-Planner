@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 
 
-
+//beka ze mnie
 class HistoryActivity : AppCompatActivity() {
 
     private lateinit var dbHelper: DatabaseHelper
