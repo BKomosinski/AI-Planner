@@ -7,6 +7,7 @@ import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.aiplanner.R
 
 import com.example.aiplanner.MainActivity
@@ -23,6 +24,8 @@ class LoadingActivity : AppCompatActivity() {
         Glide.with(this)
             .asGif()
             .load(R.drawable.loading) // nazwa pliku w res/drawable -> loading.gif
+            .skipMemoryCache(true) // Pomija pamięć podręczną
+            .diskCacheStrategy(DiskCacheStrategy.NONE) // Pomija cache na dysku
             .into(loadingGif)
 
         // Ustaw opóźnienie i przejście do MainActivity po zakończeniu ładowania
