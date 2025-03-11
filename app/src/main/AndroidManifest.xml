@@ -8,21 +8,19 @@
         android:label="AIPlanner"
         android:theme="@style/Theme.AIPlanner">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.LoadingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".MainActivity" />
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.RegisterActivity" />
-        <activity android:name=".ui.LoggedInActivity">
-            <!-- Możesz tu dodać dodatkowe atrybuty, jeśli chcesz -->
-        </activity>
-        <activity android:name=".ui.HistoryActivity">
-            <!-- Opcjonalne ustawienia, takie jak temat -->
-        </activity>
+        <activity android:name=".ui.LoggedInActivity" />
+        <activity android:name=".ui.HistoryActivity" />
     </application>
 
 </manifest>

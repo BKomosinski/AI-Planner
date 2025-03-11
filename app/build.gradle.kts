@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android") version "2.1.0" // Nowsza wersja Kotlin
     id("com.google.gms.google-services")
+    kotlin("kapt")
 }
 
 android {
@@ -57,5 +58,8 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore:24.0.1")
     implementation(platform("com.google.firebase:firebase-bom:33.10.0"))
     implementation("com.google.firebase:firebase-analytics")
+
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    kapt("com.github.bumptech.glide:compiler:4.12.0")
 
 }
