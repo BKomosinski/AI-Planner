@@ -46,6 +46,7 @@ android {
 }
 
 dependencies {
+    implementation ("androidx.drawerlayout:drawerlayout:1.2.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:2.1.0")  // Nowsza wersja Kotlina
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")

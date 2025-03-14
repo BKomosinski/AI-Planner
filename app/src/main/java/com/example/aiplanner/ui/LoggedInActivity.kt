@@ -8,12 +8,16 @@ import com.example.aiplanner.R
 import com.example.aiplanner.database.DatabaseHelper
 import com.example.aiplanner.MainActivity  // Importujemy MainActivity
 import android.content.Intent
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import com.google.android.material.navigation.NavigationView
+import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.auth.FirebaseAuth
 import java.lang.Float
 
 
-class LoggedInActivity : AppCompatActivity() {
-
+class LoggedInActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private lateinit var drawerLayout: DrawerLayout
     private lateinit var dbHelper: DatabaseHelper
     private lateinit var hrvEditText: EditText
     private lateinit var restingHeartRateEditText: EditText
@@ -28,6 +32,16 @@ class LoggedInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_logged_in)
+        //hamburger
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_launcher_foreground)
+        drawerLayout = findViewById(R.id.drawer_layout)
+        val navView: NavigationView = findViewById(R.id.nav_view)
+
+        navView.setNavigationItemSelectedListener(this)
+
 
         auth = FirebaseAuth.getInstance()
 
@@ -79,6 +93,7 @@ class LoggedInActivity : AppCompatActivity() {
             // Logika do wylogowywania
             logout()
         }
+
     }
     private fun showData() {
         // Załaduj dane z bazy danych
@@ -96,4 +111,45 @@ class LoggedInActivity : AppCompatActivity() {
         startActivity(intent)
         finish()  // Kończymy bieżącą aktywność, aby użytkownik nie mógł wrócić za pomocą "Back"
     }
+
+    override fun onOptionsItemSelected(item: android.view.MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                drawerLayout.openDrawer(GravityCompat.START)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    override fun onNavigationItemSelected(item: android.view.MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_home -> {
+                // Przykład – otwórz stronę domową
+                startActivity(Intent(this, DayPlanActivity::class.java))
+                finish()
+            }
+            R.id.nav_calendar -> {
+                // Otwórz stronę z kalendarzem
+                startActivity(Intent(this, CalendarActivity::class.java))
+            }
+            R.id.nav_data -> {
+                // Otwórz stronę z kalendarzem
+                startActivity(Intent(this, LoggedInActivity::class.java))
+            }
+
+        }
+        drawerLayout.closeDrawer(GravityCompat.START) // Zamknij menu po kliknięciu
+        return true
+    }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
 }

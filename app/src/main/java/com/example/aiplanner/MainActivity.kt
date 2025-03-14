@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         registerButton.setOnClickListener {
             navigateToRegisterActivity()
         }
+
     }
 
     private fun navigateToLoggedInActivity() {
