@@ -10,6 +10,18 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.aiplanner.R
 import com.google.android.material.navigation.NavigationView
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import okhttp3.Call
+import okhttp3.Callback
+
+import org.json.JSONArray
+import org.json.JSONObject
+
+import java.io.IOException
+import java.util.Calendar
+
 
 class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawerLayout: DrawerLayout
@@ -28,17 +40,24 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         //kalendarz
         val calendarView = findViewById<CalendarView>(R.id.calendarView)
+        fetchPolishHolidays(2025) { holidayMap ->
 
-        // 🔥 Obsługa kliknięcia na datę → przejście na stronę szczegółów
-        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            val selectedDate = "$dayOfMonth/${month + 1}/$year"
-            Toast.makeText(this, "Wybrano: $selectedDate", Toast.LENGTH_SHORT).show()
+            calendarView.setOnDateChangeListener { _, year, month, day ->
+                val formattedDate = "$year-${"%02d".format(month + 1)}-${"%02d".format(day)}"
+                val displayDate = "$day/${month + 1}/$year"
+                val holidayName = holidayMap[formattedDate]
 
-            // Przejście do DayPlanActivity z datą
-            val intent = Intent(this, DayPlanActivity::class.java)
-            intent.putExtra("SELECTED_DATE", selectedDate)
-            startActivity(intent)
+                if (holidayName != null) {
+                    Toast.makeText(this, "To święto: $holidayName", Toast.LENGTH_LONG).show()
+                }
+
+                val intent = Intent(this, DayPlanActivity::class.java)
+                intent.putExtra("SELECTED_DATE", displayDate)
+                intent.putExtra("HOLIDAY_NAME", holidayName)
+                startActivity(intent)
+            }
         }
+
 
         // Włącz ikonę "Wstecz"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -58,16 +77,16 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     override fun onNavigationItemSelected(item: android.view.MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_home -> {
-                // Przykład – otwórz stronę domową
+
                 startActivity(Intent(this, DayPlanActivity::class.java))
                 finish()
             }
             R.id.nav_calendar -> {
-                // Otwórz stronę z kalendarzem
+
                 startActivity(Intent(this, CalendarActivity::class.java))
             }
             R.id.nav_data -> {
-                // Otwórz stronę z kalendarzem
+
                 startActivity(Intent(this, LoggedInActivity::class.java))
             }
 
@@ -88,4 +107,34 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         onBackPressed()
         return true
     }
+    fun fetchPolishHolidays(year: Int, onResult: (Map<String, String>) -> Unit) {
+        val url = "https://date.nager.at/api/v3/PublicHolidays/$year/PL"
+        val request = Request.Builder().url(url).build()
+        val client = OkHttpClient()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body?.string()
+                if (body != null) {
+                    val holidays = mutableMapOf<String, String>()
+                    val jsonArray = JSONArray(body)
+                    for (i in 0 until jsonArray.length()) {
+                        val obj = jsonArray.getJSONObject(i)
+                        val date = obj.getString("date") // yyyy-MM-dd
+                        val name = obj.getString("localName")
+                        holidays[date] = name
+                    }
+                    runOnUiThread {
+                        onResult(holidays)
+                    }
+                }
+            }
+        })
+    }
+
+
 }

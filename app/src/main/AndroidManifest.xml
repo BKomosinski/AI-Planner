@@ -23,6 +23,7 @@
         <activity android:name=".ui.HistoryActivity" />
         <activity android:name=".ui.DayPlanActivity" />
         <activity android:name=".ui.CalendarActivity" />
+        <activity android:name=".ui.AddingTaskActivity" />
     </application>
 
 </manifest>
