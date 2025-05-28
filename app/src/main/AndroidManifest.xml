@@ -21,6 +21,9 @@
         <activity android:name=".ui.RegisterActivity" />
         <activity android:name=".ui.LoggedInActivity" />
         <activity android:name=".ui.HistoryActivity" />
+        <activity android:name=".ui.DayPlanActivity" />
+        <activity android:name=".ui.CalendarActivity" />
+        <activity android:name=".ui.AddingTaskActivity" />
     </application>
 
 </manifest>

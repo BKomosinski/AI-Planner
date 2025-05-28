@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aiplanner.R
+
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
@@ -56,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun navigateToLoggedInActivity() {
-        val intent = Intent(this, LoggedInActivity::class.java)
+        val intent = Intent(this, DayPlanActivity::class.java)
         startActivity(intent)
         finish()  // Kończymy bieżącą aktywność (ekran logowania)
     }

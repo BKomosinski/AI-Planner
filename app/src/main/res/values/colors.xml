@@ -5,4 +5,8 @@
     <color name="colorSecondary">#03DAC5</color>
     <color name="colorSecondaryVariant">#018786</color>
     <color name="colorOnSecondary">#000000</color>
+    <color name="colorStudy">#FF9800</color>
+    <color name="colorHobby">#4CAF50</color>
+    <color name="colorTraining">#2196F3</color>
+
 </resources>

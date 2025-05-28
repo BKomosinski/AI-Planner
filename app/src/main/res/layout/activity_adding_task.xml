@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="?android:colorBackground"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Tytuł ekranu -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dodaj nowe zadanie"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Nazwa zadania -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nazwa zadania"
+            android:textSize="16sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/taskInput"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:hint="Wpisz nazwę zadania"
+            android:padding="16dp"
+            android:textSize="16sp"
+            android:background="@drawable/edittext_background"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Typ aktywności -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Typ aktywności"
+            android:textSize="16sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="8dp" />
+
+        <Spinner
+            android:id="@+id/activityTypeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Czas -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Czas trwania"
+            android:textSize="16sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Od"
+                    android:textSize="14sp"
+                    android:textColor="#999999"
+                    android:layout_marginBottom="4dp" />
+
+                <EditText
+                    android:id="@+id/startTimeInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:hint="00:00"
+                    android:background="@drawable/edittext_background"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:padding="16dp"
+                    android:textSize="16sp"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Do"
+                    android:textSize="14sp"
+                    android:textColor="#999999"
+                    android:layout_marginBottom="4dp" />
+
+                <EditText
+                    android:id="@+id/endTimeInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:hint="00:00"
+                    android:background="@drawable/edittext_background"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:padding="16dp"
+                    android:textSize="16sp"
+                    android:gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Opis zadania -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Opis (opcjonalnie)"
+            android:textSize="16sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/taskDescription"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:hint="Dodaj szczegóły zadania..."
+            android:padding="16dp"
+            android:textSize="16sp"
+            android:gravity="top"
+            android:background="@drawable/edittext_background"
+            android:inputType="textMultiLine"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Przycisk zapisu -->
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="ZAPISZ ZADANIE"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:background="@drawable/icon_background"
+            android:layout_marginBottom="16dp" />
+
+    </LinearLayout>
+</ScrollView>
