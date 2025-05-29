@@ -44,7 +44,7 @@ class LoadingActivity : AppCompatActivity() {
 
         // Ustaw opóźnienie i przejście do MainActivity po zakończeniu ładowania
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, CalendarActivity::class.java))
             finish()
         }, 3000) // 3000 ms = 3 sekundy (możesz dostosować)
     }
