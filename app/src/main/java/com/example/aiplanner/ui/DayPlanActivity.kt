@@ -27,7 +27,7 @@ class DayPlanActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelec
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_launcher_foreground)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.icon)
         drawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
 
