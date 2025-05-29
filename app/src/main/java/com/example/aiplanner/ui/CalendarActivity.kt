@@ -21,6 +21,9 @@ import org.json.JSONObject
 
 import java.io.IOException
 import java.util.Calendar
+import android.animation.ObjectAnimator
+import android.animation.AnimatorSet
+import android.view.animation.DecelerateInterpolator
 
 
 class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -40,6 +43,27 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         //kalendarz
         val calendarView = findViewById<CalendarView>(R.id.calendarView)
+
+// Początkowy stan: poniżej ekranu i przezroczysty
+        calendarView.translationY = 150f
+        calendarView.alpha = 0f
+
+// Animacja przesunięcia w górę
+        val slideUp = ObjectAnimator.ofFloat(calendarView, "translationY", 500f, 0f)
+        slideUp.duration = 2000
+        slideUp.interpolator = DecelerateInterpolator()
+
+// fade in
+        val fadeIn = ObjectAnimator.ofFloat(calendarView, "alpha", 0f, 1f)
+        fadeIn.duration = 2000
+        fadeIn.interpolator = DecelerateInterpolator()
+
+// animacja
+        val animatorSet = AnimatorSet()
+        animatorSet.playTogether(slideUp, fadeIn)
+        animatorSet.startDelay = 600
+        animatorSet.start()
+
         fetchPolishHolidays(2025) { holidayMap ->
 
             calendarView.setOnDateChangeListener { _, year, month, day ->
