@@ -14,6 +14,7 @@ import com.google.android.material.navigation.NavigationView
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.auth.FirebaseAuth
 import java.lang.Float
+import java.util.Calendar
 
 
 class LoggedInActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -28,6 +29,8 @@ class LoggedInActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     private lateinit var viewDataButton: Button
     private lateinit var logoutButton: Button
     private lateinit var auth: FirebaseAuth
+    private lateinit var selectedDate: String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +44,8 @@ class LoggedInActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         val navView: NavigationView = findViewById(R.id.nav_view)
 
         navView.setNavigationItemSelectedListener(this)
+        selectedDate = intent.getStringExtra("SELECTED_DATE") ?: getTodayDate()
+
 
 
         auth = FirebaseAuth.getInstance()
@@ -73,7 +78,7 @@ class LoggedInActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
 
 // Przekazywanie do bazy
-            dbHelper.saveUserData(hrv, restingHeartRate, weight, bedtime, wakeupTime, userName)
+            dbHelper.saveUserData(hrv, restingHeartRate, weight, bedtime, wakeupTime, userName, selectedDate)
 
             hrvEditText.setText("")
             restingHeartRateEditText.setText("")
@@ -95,11 +100,20 @@ class LoggedInActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         }
 
     }
+
+    private fun getTodayDate(): String {
+        val cal = Calendar.getInstance()
+        return "${cal.get(Calendar.DAY_OF_MONTH)}/" +
+                "${cal.get(Calendar.MONTH)+1}/" +
+                "${cal.get(Calendar.YEAR)}"
+    }
     private fun showData() {
-        // Załaduj dane z bazy danych
-        val intent = Intent(this, HistoryActivity::class.java)
+        val intent = Intent(this, HistoryActivity::class.java).apply {
+            putExtra("SELECTED_DATE", selectedDate)
+        }
         startActivity(intent)
     }
+
 
     private fun logout() {
         // Wylogowanie użytkownika z Firebase

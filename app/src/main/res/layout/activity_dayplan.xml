@@ -45,6 +45,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/btnAddBiometric"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dodaj dane biometryczne"
+                android:layout_marginTop="16dp"/>
+
             <!-- Szczegóły planu -->
             <TextView
                 android:id="@+id/dateTextView"
@@ -83,6 +90,45 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/holidayTextView" />
+
+            <LinearLayout
+                android:id="@+id/biometricContainer"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:paddingTop="16dp">
+
+                <TextView
+                    android:id="@+id/hrvTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HRV: "/>
+
+                <TextView
+                    android:id="@+id/restingHrTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tętno spocz.: "/>
+
+                <TextView
+                    android:id="@+id/weightTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Waga: "/>
+
+                <TextView
+                    android:id="@+id/bedtimeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pora snu: "/>
+
+                <TextView
+                    android:id="@+id/wakeupTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pobudka: "/>
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
